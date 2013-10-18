@@ -6,23 +6,33 @@
 
 # The script uses a serial version of lammps.
 
-if [ $# != 1 ]
+if [ $# != 2 ]
 then
     echo 'Argument Error: Need one argument'
-    echo 'Usage: sh run.sh <simpart>'
+    echo 'Usage: sh run.sh folder <simpart>'
     exit
 fi
 
-simpart=$1
+folder=$1
+simpart=$2
 
 lmppath="/Users/laflij/Software/lammps/lammps-27Aug13"
 lmpexec="lmp_mac_mpi"
 
-if [ $simpart == 0 ]
+if [ ! -d $folder ]
 then
-    logfile=mixed-system-0.log
-    runfile=mixed-system.run
-    mpirun -np 4 $lmppath/$lmpexec  -log $logfile < $runfile
+    echo 'Error: Folder path not found'
+    exit 
+fi 
+
+cd $folder
+
+if [ $simpart = 0 ]
+then
+    logfile=md-0.log
+    runfile=${folder}.run
+#     $lmppath/$lmpexec  -log $logfile < $runfile
+    mpirun -np 4 $lmppath/$lmpexec -log $logfile < $runfile
 else
     oldpart=`echo $simpart | awk '{print $1-1}'`
     if [ ! -f confout-$oldpart.data ]
@@ -30,9 +40,10 @@ else
 	echo "Error: Missing restart file from simpart '$oldpart'"
 	exit
     fi 
-    logfile=mixed-system-$simpart.log
-    sed "s/SIMPART/$simpart/g;s/OLDPART/$oldpart/g" mixed-system-continue.run \
-	> mixed-system-$simpart.run
-    runfile=mixed-system-$simpart.run
-    mpirun -np 2 $lmppath/$lmpexec  -log $logfile < $runfile
+    logfile=md-$simpart.log
+    sed "s/SIMPART/$simpart/g;s/OLDPART/$oldpart/g" ${folder}-continue.run \
+	> ${folder}-$simpart.run
+    runfile=${folder}-$simpart.run
+#     $lmppath/$lmpexec -log $logfile < $runfile
+    mpirun -np 4 $lmppath/$lmpexec -log $logfile < $runfile
 fi

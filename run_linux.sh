@@ -6,21 +6,31 @@
 
 # The script uses a serial version of lammps.
 
-if [ $# != 1 ]
+if [ $# != 2 ]
 then
     echo 'Argument Error: Need one argument'
     echo 'Usage: sh run.sh folder <simpart>'
     exit
 fi
 
-simpart=$1
+folder=$1
+simpart=$2
 
+#lmppath="/home/venkav2/Software/lammps-21Mar12_LJScaling_VXTC"
 lmpexec="lammps"
+
+if [ ! -d $folder ]
+then
+    echo 'Error: Folder path not found'
+    exit 
+fi 
+
+cd $folder
 
 if [ $simpart = 0 ]
 then
     logfile=md-0.log
-    runfile=mixed-system.run
+    runfile=${folder}.run
 #     $lmppath/$lmpexec  -log $logfile < $runfile
     mpirun -np 4 $lmpexec -log $logfile < $runfile
 else
@@ -31,9 +41,9 @@ else
 	exit
     fi 
     logfile=md-$simpart.log
-    sed "s/SIMPART/$simpart/g;s/OLDPART/$oldpart/g" mixed-system-continue.run \
-	> mixed-system-$simpart.run
-    runfile=mixed-system-$simpart.run
+    sed "s/SIMPART/$simpart/g;s/OLDPART/$oldpart/g" ${folder}-continue.run \
+	> ${folder}-$simpart.run
+    runfile=${folder}-$simpart.run
 #     $lmppath/$lmpexec -log $logfile < $runfile
     mpirun -np 4 $lmpexec -log $logfile < $runfile
 fi
