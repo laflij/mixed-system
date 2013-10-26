@@ -14,7 +14,7 @@ rm -rf state_cpt-*
 time_stamp=$(date +%d-%m-%Y_%H-%M)
 
 # Make a folder for run data files
-folder="$time_stamp-run"
+folder="run-$time_stamp"
 mkdir -p $folder/$runfolder
 
 # Move all data from run to this folder
@@ -23,7 +23,7 @@ mv $folder/traj-0.xtc $folder/$runfolder/
 mv $folder/msd.xvg $folder/$runfolder/
 mv $folder/rdf.xvg $folder/$runfolder/
 
-# Copy plot scrips for convienience
+# Copy plot files for ease
 cp $folder/plot_rdf.gnu $folder/$runfolder/
 cp $folder/plot_msd.gnu $folder/$runfolder/
 
