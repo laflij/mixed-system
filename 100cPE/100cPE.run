@@ -18,6 +18,9 @@ pair_modify mix sixthpower
 # Read system data
 read_data	100cPE.data
 
+# Energy minimization (polymer initially stretched)
+#minimize 1.0e-16 1.0e-16 10000 100000
+
 # Write initial structure out
 dump            icrd all custom 5 system.lammpstrj id mol type x y z ix iy iz
 dump_modify     icrd sort id
@@ -28,9 +31,9 @@ undump          icrd
 reset_timestep  0
 
 # Timestep and Neighbour searching
-timestep	1
-neighbor	1.0 bin
-#neigh_modify	every 1 delay 5 check yes
+timestep	1.0
+neighbor	2.0 bin
+#neigh_modify	check yes every 1 delay 0
 
 # Computes
 compute myRDF all rdf 100 1 1 1 2 2 2

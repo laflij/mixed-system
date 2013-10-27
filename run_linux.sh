@@ -16,7 +16,6 @@ fi
 folder=$1
 simpart=$2
 
-#lmppath="/home/venkav2/Software/lammps-21Mar12_LJScaling_VXTC"
 lmpexec="lammps"
 
 if [ ! -d $folder ]
@@ -31,8 +30,8 @@ if [ $simpart = 0 ]
 then
     logfile=md-0.log
     runfile=${folder}.run
-#     $lmppath/$lmpexec  -log $logfile < $runfile
     mpirun -np 4 $lmpexec -log $logfile < $runfile
+    #$lmpexec -log $logfile < $runfile
 else
     oldpart=`echo $simpart | awk '{print $1-1}'`
     if [ ! -f confout-$oldpart.data ]
@@ -44,6 +43,6 @@ else
     sed "s/SIMPART/$simpart/g;s/OLDPART/$oldpart/g" ${folder}-continue.run \
 	> ${folder}-$simpart.run
     runfile=${folder}-$simpart.run
-#     $lmppath/$lmpexec -log $logfile < $runfile
     mpirun -np 4 $lmpexec -log $logfile < $runfile
+    #$lmpexec -log $logfile < $runfile
 fi
