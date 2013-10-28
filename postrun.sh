@@ -9,8 +9,6 @@ folder=$1
 
 # Remove state data files
 rm -rf $folder/state_cpt-*
-rm -rf $folder/*.log
-rm -rf $folder/log*
 
 # Get current date and time
 time_stamp=$(date +%d-%m-%Y_%H-%M)
@@ -23,6 +21,7 @@ mkdir -p $folder/$runfolder
 mv $folder/system.lammpstrj $folder/$runfolder/
 mv $folder/traj-0.xtc $folder/$runfolder/
 mv $folder/*.xvg $folder/$runfolder/
+mv $folder/*log* $folder/$runfolder/
 
 # Copy plot files for ease
 cp $folder/*.gnu $folder/$runfolder/

@@ -9,7 +9,7 @@
 if [ $# != 2 ]
 then
     echo 'Argument Error: Need one argument'
-    echo 'Usage: sh run.sh folder <simpart>'
+    echo 'Usage: ./run_linux folder <simpart>'
     exit
 fi
 
@@ -26,12 +26,12 @@ fi
 
 cd $folder
 
-if [ $simpart = 0 ]
+if [ $simpart == 0 ]
 then
     logfile=md-0.log
     runfile=${folder}.run
+    #$lmppath/$lmpexec  -log $logfile < $runfile
     mpirun -np 4 $lmpexec -log $logfile < $runfile
-    #$lmpexec -log $logfile < $runfile
 else
     oldpart=`echo $simpart | awk '{print $1-1}'`
     if [ ! -f confout-$oldpart.data ]
@@ -43,6 +43,6 @@ else
     sed "s/SIMPART/$simpart/g;s/OLDPART/$oldpart/g" ${folder}-continue.run \
 	> ${folder}-$simpart.run
     runfile=${folder}-$simpart.run
+    #$lmppath/$lmpexec -log $logfile < $runfile
     mpirun -np 4 $lmpexec -log $logfile < $runfile
-    #$lmpexec -log $logfile < $runfile
 fi
