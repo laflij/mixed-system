@@ -22,18 +22,18 @@ read_data	100cPE.data
 #minimize 1.0e-16 1.0e-16 10000 100000
 
 # Write initial structure out, as post relaxation 
-dump            	icrd all custom 5 system.lammpstrj id mol type x y z ix iy iz
-dump_modify     	icrd sort id
-run             	1
+dump            icrd all custom 5 system.lammpstrj id mol type x y z ix iy iz
+dump_modify     icrd sort id
+run             1
 
 # Reset the timestep
-undump          	icrd
-reset_timestep  	0
+undump          icrd
+reset_timestep  0
 
 # Timestep and Neighbour searching
-timestep		0.25
-neighbor		2.0 bin
-#neigh_modify		check yes every 1 delay 10
+timestep	1
+neighbor	2.0 bin
+neigh_modify	every 1 delay 0 check yes
 
 
 # Computes
@@ -41,28 +41,27 @@ neighbor		2.0 bin
 #compute msd all msd com yes
 
 # Fixes
-fix			1 all shake 0.0001 20 0 b 3 a 4
-fix			1 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 100.0
-#fix			 rdf all ave/time 1 500000 500000 c_rdf file rdf.xvg mode vector
-#fix			 msd all ave/time 1 500000 500000 c_msd file msd.xvg mode vector
+fix		1 all shake 0.0001 20 0 b 3 a 4
+fix		2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 100.0
+#fix		 rdf all ave/time 1 500000 500000 c_rdf file rdf.xvg mode vector
+#fix		 msd all ave/time 1 500000 500000 c_msd file msd.xvg mode vector
 
 # Initial velocity
-velocity		all create 300 432567 dist uniform
+velocity	all create 300 432567 dist uniform
 
 # Write out thermodynamic information
-thermo_style    	custom step temp press vol pe ke evdwl ecoul epair 
-thermo	        	250
+thermo_style    custom step temp press vol pe ke evdwl ecoul epair 
+thermo	        250
 
 # Write out trajectory 
-dump            	cxtc all xtc 250 traj-0.xtc
+dump            cxtc all xtc 250 traj-0.xtc
 
 # Write out velocity
-#dump 			 1 all custom 1 vel_npt.txt vx vy vz
+#dump 		 1 all custom 1 vel_npt.txt vx vy vz
 
 # Checkpoint files
-#restart         	5000 state_cpt-*.data 
+#restart        5000 state_cpt-*.data 
 
 # Final run command
-run             	5000
-write_restart   	confout-0.data
-#write_data 		100cPE-folded.data
+run             5000
+write_restart   confout-0.data

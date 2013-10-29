@@ -8,40 +8,49 @@ atom_style	full
 boundary	p p p
 kspace_style	pppm 0.0001
 
-pair_modify mix sixthpower
-
 # Read system data
-read_data	confout-OLDPART.data
+read_restart	confout-OLDPART.data
+
+# Write (hopefully folded) structure out
+dump            icrd all custom 1 system-SIMPART.lammpstrj id mol type x y z ix iy iz
+dump_modify     icrd sort id
+run             1
+
+# Reset the timestep
+undump         	icrd
 
 # Timestep and Neighbour searching
-timestep		2.0
-neighbor		2.0 bin
-neigh_modify		check yes every 1 delay 10
+timestep	1.5
+neighbor	2.0 bin
+neigh_modify	every 1 delay 4 check yes
 
+# Groups
+group 		end id 3 6 9
 
 # Computes
 #compute rdf all rdf 100 1 1 1 2 2 2
 #compute msd all msd com yes
 
 # Fixes
-#fix			 1 all shake 0.0001 20 0 b 1 a 1
-fix			1 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 100.0
-#fix			 rdf all ave/time 1 500000 500000 c_rdf file rdf.xvg mode vector
-#fix			 msd all ave/time 1 500000 500000 c_msd file msd.xvg mode vector
+fix		1 all shake 0.0001 20 0 b 3 a 4
+fix		2 all npt temp 300.0 300.0 100.0 iso 1.0 1.0 100.0
+fix 		drag end drag 1000 0.0 0.0 1.0 2.0 
+#fix		 rdf all ave/time 1 500000 500000 c_rdf file rdf.xvg mode vector
+#fix		 msd all ave/time 1 500000 500000 c_msd file msd.xvg mode vector
 
 # Write out thermodynamic information
-thermo_style    	custom step temp press vol pe ke evdwl ecoul epair 
-thermo	        	250
+thermo_style    custom step temp press vol pe ke etotal
+thermo	        250
 
 # Write out trajectory 
-dump            	cxtc all xtc 250 traj-0.xtc
+dump            cxtc all xtc 250 traj-SIMPART.xtc
 
 # Write out velocity
-#dump 			 1 all custom 1 vel_npt.txt vx vy vz
+#dump 		 1 all custom 1 vel_npt.txt vx vy vz
 
 # Checkpoint files
-restart         	5000 state_cpt-*.data 
+restart         5000 state_cpt-*.data 
 
 # Final run command
-run             	25000
-write_restart   	confout-SIMPART.data
+run             100000
+write_restart   confout-SIMPART.data

@@ -18,8 +18,8 @@ runfolder="run-$time_stamp"
 mkdir -p $folder/$runfolder
 
 # Move all data from run to this folder
-mv $folder/system.lammpstrj $folder/$runfolder/
-mv $folder/traj-0.xtc $folder/$runfolder/
+mv $folder/*.lammpstrj $folder/$runfolder/
+mv $folder/*.xtc $folder/$runfolder/
 mv $folder/*.xvg $folder/$runfolder/
 mv $folder/*log* $folder/$runfolder/
 
