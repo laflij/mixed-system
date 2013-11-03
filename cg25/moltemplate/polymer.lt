@@ -1,0 +1,48 @@
+import "monomer.lt"
+
+Polymer {
+
+  # Make a chain of monomers
+  monomers = new Monomer [25].move(2.5, 0, 0)
+
+
+  # Now, link the monomers together this way:
+  write("Data Bonds") {
+    $bond:bb1  @bond:Monomer/bb $atom:monomers[0]/M  $atom:monomers[1]/M
+    $bond:bb2  @bond:Monomer/bb $atom:monomers[1]/M  $atom:monomers[2]/M
+    $bond:bb3  @bond:Monomer/bb $atom:monomers[2]/M  $atom:monomers[3]/M
+    $bond:bb4  @bond:Monomer/bb $atom:monomers[3]/M  $atom:monomers[4]/M
+    $bond:bb5  @bond:Monomer/bb $atom:monomers[4]/M  $atom:monomers[5]/M
+    $bond:bb6  @bond:Monomer/bb $atom:monomers[5]/M  $atom:monomers[6]/M
+    $bond:bb7  @bond:Monomer/bb $atom:monomers[6]/M  $atom:monomers[7]/M
+    $bond:bb8  @bond:Monomer/bb $atom:monomers[7]/M  $atom:monomers[8]/M
+    $bond:bb9  @bond:Monomer/bb $atom:monomers[8]/M  $atom:monomers[9]/M
+    $bond:bb10 @bond:Monomer/bb $atom:monomers[9]/M  $atom:monomers[10]/M
+    $bond:bb11 @bond:Monomer/bb $atom:monomers[10]/M $atom:monomers[11]/M
+    $bond:bb12 @bond:Monomer/bb $atom:monomers[11]/M $atom:monomers[12]/M
+    $bond:bb13 @bond:Monomer/bb $atom:monomers[12]/M $atom:monomers[13]/M
+    $bond:bb14 @bond:Monomer/bb $atom:monomers[13]/M $atom:monomers[14]/M
+    $bond:bb15 @bond:Monomer/bb $atom:monomers[14]/M $atom:monomers[15]/M
+    $bond:bb16 @bond:Monomer/bb $atom:monomers[15]/M $atom:monomers[16]/M
+    $bond:bb17 @bond:Monomer/bb $atom:monomers[16]/M $atom:monomers[17]/M
+    $bond:bb18 @bond:Monomer/bb $atom:monomers[17]/M $atom:monomers[18]/M
+    $bond:bb19 @bond:Monomer/bb $atom:monomers[18]/M $atom:monomers[19]/M
+    $bond:bb20 @bond:Monomer/bb $atom:monomers[19]/M $atom:monomers[20]/M
+    $bond:bb21 @bond:Monomer/bb $atom:monomers[20]/M $atom:monomers[21]/M
+    $bond:bb22 @bond:Monomer/bb $atom:monomers[21]/M $atom:monomers[22]/M
+    $bond:bb23 @bond:Monomer/bb $atom:monomers[22]/M $atom:monomers[23]/M
+    $bond:bb24 @bond:Monomer/bb $atom:monomers[23]/M $atom:monomers[24]/M
+  }
+
+  create_var { $mol }  # Create a molecule ID number for this polymer
+
+  # This causes monomer[0], monomer[1], ... to share the same molecule counter
+  # because in the 2bead.lt file, the "..." in "$mol:..." preferentially looks
+  # for a counter of that type in a parent molecule or earlier ancestor.
+
+} # Polymer
+
+
+
+# Angle, dihedral and improper interactions will be generated
+# automatically according to the instructions in "monomer.lt"

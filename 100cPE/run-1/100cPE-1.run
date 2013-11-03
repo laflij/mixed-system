@@ -12,7 +12,7 @@ kspace_style	pppm 0.0001
 read_restart	confout-0.data
 
 # Write (hopefully folded) structure out
-dump            icrd all custom 1 system-1.lammpstrj id mol type x y z ix iy iz
+dump            icrd all custom 5 system-1.lammpstrj id mol type x y z ix iy iz
 dump_modify     icrd sort id
 run             1
 
@@ -20,7 +20,7 @@ run             1
 undump         	icrd
 
 # Timestep and Neighbour searching
-timestep	1.5
+timestep	2.0
 neighbor	2.0 bin
 neigh_modify	every 1 delay 4 check yes
 

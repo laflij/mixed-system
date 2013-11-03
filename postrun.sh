@@ -6,7 +6,7 @@ then
     exit
 fi
 
-fifolder=$1
+folder=$1
 simpart=$2
 
 # Remove state data files

@@ -1,0 +1,20 @@
+# SOLVENT
+
+import "water-spc.lt"
+
+# Fill the simulation box with a solvent (in this case spc water)
+
+# Create a rectangular box of water.
+
+solvent  =  new SPC [25].move(4.0,0,0)
+                    [12].move(0,4.0,0)
+                    [12].move(0,0,4.0)
+
+# To start with a reasonable conformation, it's a good idea to delete the 
+# solvent where the polymer is going to be.
+
+# [a:b] a is strict lower bound.  
+delete solvent[0][*][*]
+delete solvent[*][0][*]
+delete solvent[*][*][0]
+delete solvent[4:22][5:7][5:7]
