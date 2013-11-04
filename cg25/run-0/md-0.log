@@ -1,0 +1,184 @@
+LAMMPS (24 Apr 2013)
+WARNING: OMP_NUM_THREADS environment is not set. (../comm.cpp:100)
+  using 1 OpenMP thread(s) per MPI task
+# ----------------- Init Section -----------------
+units           real
+atom_style      full
+boundary	p p p
+pair_style	lj/cut/coul/long 9.8 9.8
+pair_modify     mix arithmetic
+kspace_style	pppm 1.0e-4
+bond_style      harmonic
+angle_style     harmonic
+dihedral_style  none
+improper_style  none
+
+# ----------------- Atom Definition Section -----------------
+read_data "cg25.data"
+  2 = max bonds/atom
+  1 = max angles/atom
+  orthogonal box = (0 0 0) to (98 48 48)
+  1 by 1 by 1 MPI processor grid
+  8521 atoms
+  5688 bonds
+  2832 angles
+  2 = max # of 1-2 neighbors
+  2 = max # of 1-3 neighbors
+  4 = max # of 1-4 neighbors
+  6 = max # of special neighbors
+
+# ----------------- Settings Section -----------------------
+# Bond parameters
+#           bond-type   k      	r0
+# Water
+bond_coeff   	1  	200.0   1.0
+angle_coeff  	1 	200.0   109.47
+# CG25
+bond_coeff  	2       72.54   2.5
+
+# LJ Interactions
+#             atom1   atom2	epsilon	sigma
+pair_coeff   	1 	1 	0.1553  3.166
+pair_coeff   	1 	2 	0.0     0.0
+pair_coeff 	1 	3 	0.1777 	3.783
+pair_coeff   	2 	2 	0.0     0.0
+pair_coeff   	2 	3 	0.0     0.0
+pair_coeff 	3 	3 	0.2032	4.4
+
+group spc type	1 2
+8496 atoms in group spc
+
+# ----------------- Minimize -----------------
+# command  	etol    ftol   maxiter  maxeval
+#minimize	1.0e-6	1.0e-8	200	2000
+
+# ----------------- Run Section -----------------
+# Write initial structure out
+dump            icrd all custom 5 system.lammpstrj id mol type x y z ix iy iz
+dump_modify     icrd sort id
+run             1
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:54)
+PPPM initialization ...
+  G vector (1/distance) = 0.25791
+  grid = 40 24 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.032839
+  estimated relative force accuracy = 9.88937e-05
+  using double precision FFTs
+  3d grid and FFT values/proc = 40500 23040
+Memory usage per processor = 21.3245 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0            0   -10236.175    261648.33    251412.16   -1332.6812 
+       1            0   -10236.175    261648.33    251412.16   -1332.6812 
+Loop time of 0.044606 on 1 procs (1 MPI x 1 OpenMP) for 1 steps with 8521 atoms
+
+Pair  time (%) = 0.0355389 (79.673)
+Bond  time (%) = 0.000554085 (1.24218)
+Kspce time (%) = 0.00831199 (18.6342)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.000108242 (0.242663)
+Outpt time (%) = 6.19888e-05 (0.13897)
+Other time (%) = 3.0756e-05 (0.0689504)
+
+FFT time (% of Kspce) = 0.00283522 (34.11)
+FFT Gflps 3d (1d only) = 1.63258 2.69184
+
+Nlocal:    8521 ave 8521 max 8521 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    12632 ave 12632 max 12632 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.05956e+06 ave 1.05956e+06 max 1.05956e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1059558
+Ave neighs/atom = 124.347
+Ave special neighs/atom = 2.01033
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# Reset the timestep
+undump          icrd
+reset_timestep  0
+
+# Timestep and Neighbour searching
+timestep	1.0
+neighbor        2.0 bin
+neigh_modify	delay 0 every 1 check yes
+
+# Fixes
+fix 		shake spc shake 0.0001 10 0 b 1 a 1
+  0 = # of size 2 clusters
+  0 = # of size 3 clusters
+  0 = # of size 4 clusters
+  2832 = # of frozen angles
+fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 10000.0
+
+# Initial velocity
+velocity	all create 300 432567 dist uniform
+
+# Write out thermodynamic information
+thermo_style    custom step temp press vol pe ke evdwl ecoul epair
+thermo	        250
+
+# Write out trajectory
+dump            cxtc all xtc 50 traj-0.xtc
+
+# Write out velocity
+#dump 		1 all custom 1 vel_npt.txt vx vy vz
+
+# Checkpoint files
+restart         5000 state_cpt-*.data
+
+# Final run command
+run             1500
+PPPM initialization ...
+  G vector (1/distance) = 0.25791
+  grid = 40 24 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.032839
+  estimated relative force accuracy = 9.88937e-05
+  using double precision FFTs
+  3d grid and FFT values/proc = 40500 23040
+Memory usage per processor = 21.7299 Mbytes
+Step Temp Press Volume PotEng KinEng E_vdwl E_coul E_pair 
+       0          300   -123902.28       225792   -10236.175    5086.4543   -1294.3336    127182.58   -10236.175 
+     250    476.47988   -226.05406    225433.26   -10824.246    8078.6438    1201.8299    125494.58   -10825.759 
+     500    413.31276   -521.68245    224853.67   -15165.755    7007.6549    1978.7582    120479.96   -15166.906 
+     750    362.05451   -614.70977    224160.03   -18410.048    6138.5791    2858.4665       116389   -18410.626 
+    1000    318.34764    -463.7051    223355.74   -20606.235    5397.5358    3640.8463    113442.42   -20606.887 
+    1250    301.68853   -473.12889    222481.01   -22282.116     5115.083    4052.7514    111386.59   -22282.759 
+    1500    303.34678   -317.55032    221591.56    -23509.85    5143.1983    4410.5342    109825.33   -23510.402 
+Loop time of 68.8493 on 1 procs (1 MPI x 1 OpenMP) for 1500 steps with 8521 atoms
+
+Pair  time (%) = 38.0725 (55.2983)
+Bond  time (%) = 0.0046823 (0.0068008)
+Kspce time (%) = 12.4871 (18.1368)
+Neigh time (%) = 3.52413 (5.11861)
+Comm  time (%) = 0.20123 (0.292276)
+Outpt time (%) = 0.0247068 (0.0358854)
+Other time (%) = 14.535 (21.1113)
+
+FFT time (% of Kspce) = 4.24433 (33.9897)
+FFT Gflps 3d (1d only) = 1.63585 2.71181
+
+Nlocal:    8521 ave 8521 max 8521 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    13054 ave 13054 max 13054 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.28726e+06 ave 1.28726e+06 max 1.28726e+06 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 1287256
+Ave neighs/atom = 151.069
+Ave special neighs/atom = 2.01033
+Neighbor list builds = 92
+Dangerous builds = 0
+write_restart   confout-0.data
+PPPM initialization ...
+  G vector (1/distance) = 0.258474
+  grid = 40 24 24
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0322331
+  estimated relative force accuracy = 9.7069e-05
+  using double precision FFTs
+  3d grid and FFT values/proc = 43245 23040
