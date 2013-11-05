@@ -11,10 +11,6 @@ read_restart	confout-0.data
 
 group spc type	1 2
 
-# ----------------- Minimize -----------------
-# command  	etol    ftol   maxiter  maxeval
-#minimize	1.0e-6	1.0e-8	200	2000
-
 # ----------------- Run Section -----------------
 # Write initial structure out
 dump            icrd all custom 5 system.lammpstrj id mol type x y z ix iy iz
@@ -23,7 +19,6 @@ run             1
 
 # Reset the timestep
 undump          icrd
-reset_timestep  0
 
 # Timestep and Neighbour searching
 timestep	2.0
@@ -32,7 +27,7 @@ neigh_modify	delay 4 every 1 check yes
 
 # Fixes
 fix 		shake spc shake 0.0001 10 0 b 1 a 1
-fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 10000.0 
+fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0 
 
 # Initial velocity
 #velocity	all create 300 432567 dist uniform

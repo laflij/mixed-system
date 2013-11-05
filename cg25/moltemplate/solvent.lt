@@ -6,16 +6,16 @@ import "water-spc.lt"
 
 # Create a rectangular box of water.
 
-solvent  =  new SPC [25].move(3.5,0,0)
-                    [11].move(0,3.5,0)
-                    [11].move(0,0,3.5)
+solvent  =  new SPC[25].move(3.5,0,0)
+ 		   [11].move(0,3.5,0)
+ 		   [11].move(0,0,3.5)
 
 # To start with a reasonable conformation, it's a good idea to delete the 
 # solvent where the polymer is going to be.
 
 # [a:b] a is strict lower bound.  
-delete solvent[0][*][*]
-delete solvent[*][0][*]
-delete solvent[*][*][0]
+#delete solvent[0][*][*]
+#delete solvent[*][0][*]
+#delete solvent[*][*][0]
 delete solvent[3:22][5:6][5:6]
 #delete solvent[*][5:6][5:6]

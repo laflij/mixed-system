@@ -35,7 +35,7 @@ group spc type	1 2
 
 # ----------------- Minimize -----------------
 # command  	etol    ftol   maxiter  maxeval
-#minimize	1.0e-6	1.0e-8	200	2000
+minimize	1.0e-4	1.0e-6	100	1000
 
 # ----------------- Run Section -----------------
 # Write initial structure out
@@ -64,14 +64,11 @@ thermo_style    custom step temp press vol pe ke evdwl ecoul epair
 thermo	        250
 
 # Write out trajectory 
-dump            cxtc all xtc 50 traj-0.xtc
+dump            cxtc all xtc 1 traj-0.xtc
 
 # Write out velocity
 #dump 		1 all custom 1 vel_npt.txt vx vy vz
 
-# Checkpoint files
-restart         5000 state_cpt-*.data 
-
 # Final run command
-run             3500
+run             500
 write_restart   confout-0.data
