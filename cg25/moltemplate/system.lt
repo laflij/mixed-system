@@ -20,9 +20,9 @@ write_once("In Init") {
 }
 
 write_once("Data Boundary") {
-  0.0 98.0 xlo xhi
-  0.0 48.0 ylo yhi
-  0.0 48.0 zlo zhi
+  0.0 85.0 xlo xhi
+  0.0 37.0 ylo yhi
+  0.0 37.0 zlo zhi
 }
 
 
@@ -32,4 +32,4 @@ import "polymer.lt"
 
 polymer = new Polymer
 #polymer.rot(-90.0, 0,0,0)    	# rotate it -90 degrees around the Z axis
-polymer.move(20,22,22) 	# move it near the openning of the hole
+polymer.move(12,18,18) 	# move it near the openning of the hole

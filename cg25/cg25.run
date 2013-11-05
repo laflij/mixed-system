@@ -57,7 +57,7 @@ fix 		shake spc shake 0.0001 10 0 b 1 a 1
 fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 10000.0 
 
 # Initial velocity
-velocity	all create 300 432567 dist uniform
+#velocity	all create 300 432567 dist uniform
 
 # Write out thermodynamic information
 thermo_style    custom step temp press vol pe ke evdwl ecoul epair 
@@ -73,5 +73,5 @@ dump            cxtc all xtc 50 traj-0.xtc
 restart         5000 state_cpt-*.data 
 
 # Final run command
-run             1500
+run             3500
 write_restart   confout-0.data
