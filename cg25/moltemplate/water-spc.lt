@@ -7,9 +7,9 @@
 SPC {
   
   write("Data Atoms") {
-    $atom:O  $mol:. @atom:O -0.82  1.0  1.0000000  1.5773590
-    $atom:H1 $mol:. @atom:H  0.41  1.0  1.8164904  2.1546718
-    $atom:H2 $mol:. @atom:H  0.41  1.0  1.8164904  1.0000000
+    $atom:O  $mol:. @atom:O -0.82  1.5  1.3000000  1.7773590
+    $atom:H1 $mol:. @atom:H  0.41  1.5  2.1164904  2.3546718
+    $atom:H2 $mol:. @atom:H  0.41  1.5  2.1164904  1.2000000
   }
 
   write_once("Data Masses") {

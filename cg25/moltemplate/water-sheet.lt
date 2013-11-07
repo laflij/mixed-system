@@ -1,0 +1,15 @@
+# SHEET
+
+import "water-line.lt"
+
+# Fill the simulation box with a solvent (in this case spc water)
+
+# Create a rectangular box of water.
+
+water_sheet {
+
+  # create a plane of water
+  sheet = new water_line[2].rot(180.0, -1,0,0).move(0,0,0)
+  }
+
+

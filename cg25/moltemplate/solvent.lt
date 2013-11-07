@@ -1,14 +1,13 @@
 # SOLVENT
 
-import "water-spc.lt"
+import "water-line.lt"
+import "water-sheet.lt"
 
 # Fill the simulation box with a solvent (in this case spc water)
 
 # Create a rectangular box of water.
 
-solvent  =  new SPC[25].move(3.5,0,0)
- 		   [11].move(0,3.5,0)
- 		   [11].move(0,0,3.5)
+solvent  =  new water_sheet
 
 # To start with a reasonable conformation, it's a good idea to delete the 
 # solvent where the polymer is going to be.
