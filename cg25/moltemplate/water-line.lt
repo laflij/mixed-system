@@ -9,7 +9,5 @@ import "water-spc.lt"
 water_line {
 
   # create a line of water 
-  line = new SPC[25].move(3.2,0,0)
-  #line = new SPC.rot(180.0, 1,0,0).move(3.2,0,0)
+  line = new SPC[27].move(3.2,0,0)
   }
-
