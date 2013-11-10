@@ -9,7 +9,8 @@ read_restart	confout-OLDPART.data
 
 # ----------------- Settings Section -----------------------
 
-group spc type	1 2
+group 		spc		type	1 2
+group		end_atom	id 	10801
 
 # ----------------- Run Section -----------------
 # Write initial structure out
@@ -26,6 +27,7 @@ neighbor        2.0 bin
 neigh_modify	delay 4 every 1 check yes
 
 # Fixes
+fix 		pull end_atom setforce 0.01 0.0 0.0
 fix 		shake spc shake 0.0001 10 0 b 1 a 1
 fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0 
 
@@ -46,5 +48,5 @@ dump            cxtc all xtc 250 traj-SIMPART.xtc
 restart         5000 state_cpt-*.data 
 
 # Final run command
-run             250000
+run             100000
 write_restart   confout-SIMPART.data

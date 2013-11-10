@@ -1,4 +1,4 @@
-# ----------------- Init Section -----------------
+# ----------------- Init Section -------------------------------------------------------
 units           real
 atom_style      full
 boundary	p p p
@@ -10,10 +10,10 @@ angle_style     harmonic
 dihedral_style  none
 improper_style  none
 
-# ----------------- Atom Definition Section -----------------
+# ----------------- Atom Definition Section --------------------------------------------
 read_data "cg25.data"
 
-# ----------------- Settings Section -----------------------
+# ----------------- Settings Section ---------------------------------------------------
 # Bond parameters
 #           bond-type   k      	r0
 # Water
@@ -33,11 +33,11 @@ pair_coeff 	3 	3 	0.2032	4.4
 
 group spc type	1 2
 
-# ----------------- Minimize -----------------
+# ----------------- Minimize -----------------------------------------------------------
 # command  	etol    ftol   maxiter  maxeval
 minimize	1.0e-4	1.0e-6	100	1000
 
-# ----------------- Run Section -----------------
+# ----------------- Run it --------------------------------------------------------------
 # Write initial structure out
 dump            icrd all custom 5 system.lammpstrj id mol type x y z ix iy iz
 dump_modify     icrd sort id
@@ -48,13 +48,13 @@ undump          icrd
 reset_timestep  0
 
 # Timestep and Neighbour searching
-timestep	1.0
+timestep	2.0
 neighbor        2.0 bin
-neigh_modify	delay 0 every 1 check yes
+neigh_modify	delay 4 every 1 check yes
 
 # Fixes
 fix 		shake spc shake 0.0001 10 0 b 1 a 1
-fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 10000.0 
+fix   		npt all npt temp 300.0 300.0 100.0 iso 1.0 1.0 1000.0 
 
 # Initial velocity
 #velocity	all create 300 432567 dist uniform
@@ -64,11 +64,11 @@ thermo_style    custom step temp press vol pe ke evdwl ecoul epair
 thermo	        250
 
 # Write out trajectory 
-dump            cxtc all xtc 1 traj-0.xtc
+dump            cxtc all xtc 250 traj-0.xtc
 
 # Write out velocity
 #dump 		1 all custom 1 vel_npt.txt vx vy vz
 
 # Final run command
-run             500
+run             65250
 write_restart   confout-0.data
