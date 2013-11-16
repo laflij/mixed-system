@@ -32,7 +32,7 @@ Polymer {
     $bond:bb22 @bond:Monomer/bb $atom:monomers[21]/M $atom:monomers[22]/M
     $bond:bb23 @bond:Monomer/bb $atom:monomers[22]/M $atom:monomers[23]/M
     $bond:bb24 @bond:Monomer/bb $atom:monomers[23]/M $atom:monomers[24]/M
-  }
+    }
 
   create_var { $mol }  # Create a molecule ID number for this polymer
 

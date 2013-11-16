@@ -1,0 +1,73 @@
+import "monomer.lt"
+
+Polymer {
+
+  # Make a chain of monomers
+  monomers = new Monomer [50].move(2.5, 0, 0)
+
+
+  # Now, link the monomers together this way:
+  write("Data Bonds") {
+    $bond:bb1  @bond:Monomer/bb $atom:monomers[0]/M  $atom:monomers[1]/M
+    $bond:bb2  @bond:Monomer/bb $atom:monomers[1]/M  $atom:monomers[2]/M
+    $bond:bb3  @bond:Monomer/bb $atom:monomers[2]/M  $atom:monomers[3]/M
+    $bond:bb4  @bond:Monomer/bb $atom:monomers[3]/M  $atom:monomers[4]/M
+    $bond:bb5  @bond:Monomer/bb $atom:monomers[4]/M  $atom:monomers[5]/M
+    $bond:bb6  @bond:Monomer/bb $atom:monomers[5]/M  $atom:monomers[6]/M
+    $bond:bb7  @bond:Monomer/bb $atom:monomers[6]/M  $atom:monomers[7]/M
+    $bond:bb8  @bond:Monomer/bb $atom:monomers[7]/M  $atom:monomers[8]/M
+    $bond:bb9  @bond:Monomer/bb $atom:monomers[8]/M  $atom:monomers[9]/M
+    $bond:bb10 @bond:Monomer/bb $atom:monomers[9]/M  $atom:monomers[10]/M
+    $bond:bb11 @bond:Monomer/bb $atom:monomers[10]/M $atom:monomers[11]/M
+    $bond:bb12 @bond:Monomer/bb $atom:monomers[11]/M $atom:monomers[12]/M
+    $bond:bb13 @bond:Monomer/bb $atom:monomers[12]/M $atom:monomers[13]/M
+    $bond:bb14 @bond:Monomer/bb $atom:monomers[13]/M $atom:monomers[14]/M
+    $bond:bb15 @bond:Monomer/bb $atom:monomers[14]/M $atom:monomers[15]/M
+    $bond:bb16 @bond:Monomer/bb $atom:monomers[15]/M $atom:monomers[16]/M
+    $bond:bb17 @bond:Monomer/bb $atom:monomers[16]/M $atom:monomers[17]/M
+    $bond:bb18 @bond:Monomer/bb $atom:monomers[17]/M $atom:monomers[18]/M
+    $bond:bb19 @bond:Monomer/bb $atom:monomers[18]/M $atom:monomers[19]/M
+    $bond:bb20 @bond:Monomer/bb $atom:monomers[19]/M $atom:monomers[20]/M
+    $bond:bb21 @bond:Monomer/bb $atom:monomers[20]/M $atom:monomers[21]/M
+    $bond:bb22 @bond:Monomer/bb $atom:monomers[21]/M $atom:monomers[22]/M
+    $bond:bb23 @bond:Monomer/bb $atom:monomers[22]/M $atom:monomers[23]/M
+    $bond:bb24 @bond:Monomer/bb $atom:monomers[23]/M $atom:monomers[24]/M
+    $bond:bb25 @bond:Monomer/bb $atom:monomers[24]/M $atom:monomers[25]/M
+    $bond:bb26 @bond:Monomer/bb $atom:monomers[25]/M $atom:monomers[26]/M
+    $bond:bb27 @bond:Monomer/bb $atom:monomers[26]/M $atom:monomers[27]/M
+    $bond:bb28 @bond:Monomer/bb $atom:monomers[27]/M $atom:monomers[28]/M
+    $bond:bb29 @bond:Monomer/bb $atom:monomers[28]/M $atom:monomers[29]/M
+    $bond:bb30 @bond:Monomer/bb $atom:monomers[29]/M $atom:monomers[30]/M
+    $bond:bb31 @bond:Monomer/bb $atom:monomers[30]/M $atom:monomers[31]/M
+    $bond:bb32 @bond:Monomer/bb $atom:monomers[31]/M $atom:monomers[32]/M
+    $bond:bb33 @bond:Monomer/bb $atom:monomers[32]/M $atom:monomers[33]/M
+    $bond:bb34 @bond:Monomer/bb $atom:monomers[33]/M $atom:monomers[34]/M
+    $bond:bb35 @bond:Monomer/bb $atom:monomers[34]/M $atom:monomers[35]/M
+    $bond:bb36 @bond:Monomer/bb $atom:monomers[35]/M $atom:monomers[36]/M
+    $bond:bb37 @bond:Monomer/bb $atom:monomers[36]/M $atom:monomers[37]/M
+    $bond:bb38 @bond:Monomer/bb $atom:monomers[37]/M $atom:monomers[38]/M
+    $bond:bb39 @bond:Monomer/bb $atom:monomers[38]/M $atom:monomers[39]/M
+    $bond:bb40 @bond:Monomer/bb $atom:monomers[39]/M $atom:monomers[40]/M
+    $bond:bb41 @bond:Monomer/bb $atom:monomers[40]/M $atom:monomers[41]/M
+    $bond:bb42 @bond:Monomer/bb $atom:monomers[41]/M $atom:monomers[42]/M
+    $bond:bb43 @bond:Monomer/bb $atom:monomers[42]/M $atom:monomers[43]/M
+    $bond:bb44 @bond:Monomer/bb $atom:monomers[43]/M $atom:monomers[44]/M
+    $bond:bb45 @bond:Monomer/bb $atom:monomers[44]/M $atom:monomers[45]/M
+    $bond:bb46 @bond:Monomer/bb $atom:monomers[45]/M $atom:monomers[46]/M
+    $bond:bb47 @bond:Monomer/bb $atom:monomers[46]/M $atom:monomers[47]/M
+    $bond:bb48 @bond:Monomer/bb $atom:monomers[47]/M $atom:monomers[48]/M
+    $bond:bb49 @bond:Monomer/bb $atom:monomers[48]/M $atom:monomers[49]/M
+  }
+
+  create_var { $mol }  # Create a molecule ID number for this polymer
+
+  # This causes monomer[0], monomer[1], ... to share the same molecule counter
+  # because in the 2bead.lt file, the "..." in "$mol:..." preferentially looks
+  # for a counter of that type in a parent molecule or earlier ancestor.
+
+} # Polymer
+
+
+
+# Angle, dihedral and improper interactions will be generated
+# automatically according to the instructions in "monomer.lt"

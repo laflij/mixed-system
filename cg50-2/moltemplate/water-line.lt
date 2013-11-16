@@ -1,0 +1,13 @@
+# LINE
+
+import "water-spc.lt"
+
+# Fill the simulation box with a solvent (in this case spc water)
+
+# Create a line of water in x
+
+water_line {
+
+  # create a line of water 
+  line = new SPC[27].move(3.2,0,0)
+  }
