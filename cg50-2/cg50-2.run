@@ -70,5 +70,5 @@ dump            cxtc all xtc 250 traj-0.xtc
 #dump 		1 all custom 1 vel_npt.txt vx vy vz
 
 # Final run command
-run             65250
+run             100000
 write_restart   confout-0.data
