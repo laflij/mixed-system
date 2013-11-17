@@ -1,0 +1,73 @@
+LAMMPS (24 Apr 2013)
+WARNING: OMP_NUM_THREADS environment is not set. (../comm.cpp:100)
+  using 1 OpenMP thread(s) per MPI task
+# ----------------- Init Section -----------------
+units           real
+atom_style      full
+boundary	p p p
+kspace_style	pppm 1.0e-4
+
+# ----------------- Atom Definition Section -----------------
+read_restart	confout-0.data
+  orthogonal box = (14.7482 2.80383 2.80383) to (248.252 47.1962 47.1962)
+  1 by 1 by 1 MPI processor grid
+  44200 atoms
+  29498 bonds
+  14700 angles
+  2 = max # of 1-2 neighbors
+  2 = max # of 1-3 neighbors
+  4 = max # of 1-4 neighbors
+  6 = max # of special neighbors
+
+# ----------------- Settings Section -----------------------
+
+group 		spc		type	1 2
+44100 atoms in group spc
+group		p1_end_atom	id 	44150
+1 atoms in group p1_end_atom
+group		p2_end_atom	id 	44200
+1 atoms in group p2_end_atom
+
+# ----------------- Run Section -----------------
+# Write initial structure out
+dump            icrd all custom 5 system-1.lammpstrj id mol type x y z ix iy iz
+dump_modify     icrd sort id
+run             1
+WARNING: No fixes defined, atoms won't move (../verlet.cpp:54)
+PPPM initialization ...
+  G vector (1/distance) = 0.263205
+  grid = 90 25 25
+  stencil order = 5
+  estimated absolute RMS force accuracy = 0.0402261
+  estimated relative force accuracy = 0.00012114
+  using double precision FFTs
+  3d grid and FFT values/proc = 97280 56250
+Memory usage per processor = 126.882 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+   65250    201.58133   -144956.78    27.171462   -118371.51    24223.801 
+   65251    201.58133   -144956.78    27.171462   -118371.51    24223.801 
+Loop time of 0.478464 on 1 procs (1 MPI x 1 OpenMP) for 1 steps with 44200 atoms
+
+Pair  time (%) = 0.438517 (91.651)
+Bond  time (%) = 0.00329208 (0.688053)
+Kspce time (%) = 0.0353789 (7.39427)
+Neigh time (%) = 0 (0)
+Comm  time (%) = 0.000795841 (0.166333)
+Outpt time (%) = 0.000248909 (0.0520225)
+Other time (%) = 0.000231028 (0.0482853)
+
+FFT time (% of Kspce) = 0.00808631 (22.8563)
+FFT Gflps 3d (1d only) = 1.52168 2.99327
+
+Nlocal:    44200 ave 44200 max 44200 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:    70123 ave 70123 max 70123 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:    1.46037e+07 ave 1.46037e+07 max 1.46037e+07 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 14603685
+Ave neighs/atom = 330.4
+Ave special neighs/atom = 2.00851
+Neighbor list builds = 0
+Dangerous builds = 0
